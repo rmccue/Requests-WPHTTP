@@ -154,7 +154,15 @@ class Requests_WPHTTP {
 		}
 
 		if ( ! $r['blocking'] ) {
-			return array( 'headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array() );
+			return array(
+				'headers' => array(),
+				'body' => '',
+				'response' => array(
+					'code' => false,
+					'message' => false,
+				),
+				'cookies' => array(),
+			);
 		}
 		$data = array(
 			'headers' => $response->headers,
