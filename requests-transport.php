@@ -70,9 +70,6 @@ class Requests_WPHTTP {
 			$r['headers'] = $processedHeaders['headers'];
 		}
 
-		// TODO: Native cookie handling, once baked into Requests
-		WP_Http::buildCookieHeader( $r );
-
 		// Setup arguments
 		$headers = $r['headers'];
 		$data = $r['body'];
@@ -94,8 +91,18 @@ class Requests_WPHTTP {
 			$options['redirects'] = $r['redirection'];
 		}
 
-		// TODO: compress
-		// TODO: decompress
+		// If we've got cookies, use them
+		if ( ! empty( $r['cookies'] ) ) {
+			$options['cookies'] = $r['cookies'];
+		}
+
+		// SSL certificate handling
+		if ( ! $r['sslverify'] ) {
+			$options['verify'] = false;
+		}
+		else {
+			$options['verify'] = $r['sslcertificates'];
+		}
 
 		try {
 			$response = Requests::request($url, $headers, $data, $type, $options);
