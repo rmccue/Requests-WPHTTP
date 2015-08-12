@@ -60,8 +60,9 @@ class Requests_WPHTTP {
 				return new WP_Error( 'http_request_failed', __( 'Destination directory for file streaming does not exist or is not writable.' ) );
 		}
 
-		if ( is_null( $r['headers'] ) )
+		if ( is_null( $r['headers'] ) ) {
 			$r['headers'] = array();
+		}
 
 		// WP allows passing in headers as a string, weirdly.
 		if ( ! is_array( $r['headers'] ) ) {
