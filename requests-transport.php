@@ -47,6 +47,23 @@ class Requests_WPHTTP {
 		if ( $wp_http->block_request( $url ) )
 			return new WP_Error( 'http_request_failed', __( 'User has blocked requests through HTTP.' ) );
 
+		// TODO:
+		// @type string       $httpversion         Version of the HTTP protocol to use. Accepts '1.0' and '1.1'.
+		//                                         Default '1.0'.
+		// =< Requests only supports 1.1 right now.
+
+		// @type bool         $compress            Whether to compress the $body when sending the request.
+		//                                         Default false.
+		// => This isn't actually functional in WP_Http right now; should it be?
+
+		// @type bool         $decompress          Whether to decompress a compressed response. If set to false and
+		//                                         compressed content is returned in the response anyway, it will
+		//                                         need to be separately decompressed. Default true.
+		// => Is there any reason you wouldn't want responses decompressed?
+
+		// @type int          $limit_response_size Size in bytes to limit the response to. Default null.
+		// => Not available yet, but good idea.
+
 		// If we are streaming to a file but no filename was given drop it in the WP temp dir
 		// and pick its name using the basename of the $url
 		if ( $r['stream'] ) {
