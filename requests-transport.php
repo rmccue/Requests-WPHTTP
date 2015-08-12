@@ -183,8 +183,8 @@ class Requests_WPHTTP {
 			}
 		}
 
-		if ( isset( $r['limit-response-size'] ) && strlen( $process['body'] ) > $r['limit-response-size'] )
-			$data['body'] = substr( $process['body'], 0, $r['limit-response-size'] );
+		if ( isset( $r['limit_response_size'] ) && strlen( $process['body'] ) > $r['limit_response_size'] )
+			$data['body'] = substr( $process['body'], 0, $r['limit_response_size'] );
 
 		/**
 		 * Filter the HTTP API response immediately before the response is returned.
