@@ -62,7 +62,7 @@ class Requests_WPHTTP {
 		// => Is there any reason you wouldn't want responses decompressed?
 
 		// @type int          $limit_response_size Size in bytes to limit the response to. Default null.
-		// => Not available yet, but good idea.
+		// => Not available yet, but good idea. We fake support for it by using substr afterwards.
 
 		// If we are streaming to a file but no filename was given drop it in the WP temp dir
 		// and pick its name using the basename of the $url
