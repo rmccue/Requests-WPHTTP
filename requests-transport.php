@@ -121,6 +121,15 @@ class Requests_WPHTTP {
 			$options['verify'] = $r['sslcertificates'];
 		}
 
+		/**
+		 * Filter whether SSL should be verified for non-local requests.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param bool $ssl_verify Whether to verify the SSL connection. Default true.
+		 */
+		$options['verify'] = apply_filters( 'https_ssl_verify', $options['verify'] );
+
 		try {
 			$response = Requests::request($url, $headers, $data, $type, $options);
 		}
