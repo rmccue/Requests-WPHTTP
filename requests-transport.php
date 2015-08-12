@@ -133,8 +133,24 @@ class Requests_WPHTTP {
 		try {
 			$response = Requests::request($url, $headers, $data, $type, $options);
 		}
-		catch (Requests_Exception $e) {
-			return new WP_Error( 'http_request_failed', $e->getMessage() );
+		catch ( Requests_Exception $e ) {
+			$response = new WP_Error( 'http_request_failed', $e->getMessage() );
+		}
+
+		/**
+		 * Fires after an HTTP API response is received and before the response is returned.
+		 *
+		 * @since 2.8.0
+		 *
+		 * @param array|WP_Error $response HTTP response or WP_Error object.
+		 * @param string         $context  Context under which the hook is fired.
+		 * @param string         $class    HTTP transport used.
+		 * @param array          $args     HTTP request arguments.
+		 * @param string         $url      The request URL.
+		 */
+		do_action( 'http_api_debug', $response, 'response', 'Requests', $r, $url );
+		if ( is_wp_error( $response ) ) {
+			return $response;
 		}
 
 		if ( ! $r['blocking'] ) {
