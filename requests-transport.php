@@ -205,7 +205,7 @@ class Requests_WPHTTP {
  * @package Requests
  * @subpackage Utilities
  */
-class Requests_WPHTTP_Hooks {
+class Requests_WPHTTP_Hooks implements Requests_Hooker {
 	/**
 	 * Constructor
 	 */
