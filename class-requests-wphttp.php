@@ -153,7 +153,7 @@ class Requests_WPHTTP {
 			);
 		}
 		$data = array(
-			'headers' => $response->headers,
+			'headers' => $this->get_header_array( $response->headers ),
 			'body' => $response->body,
 			'response' => array(
 				'code' => $response->status_code,
@@ -184,5 +184,26 @@ class Requests_WPHTTP {
 		 * @param string $url  The request URL.
 		 */
 		return apply_filters( 'http_response', $data, $r, $url );
+	}
+
+	/**
+	 * Convert headers to WP-style mixed strings and arrays
+	 *
+	 * @param Requests_Response_Headers $headers
+	 * @return array
+	 */
+	protected function get_header_array( $headers ) {
+		$converted = array();
+
+		foreach ( $headers->getAll() as $key => $value ) {
+			if ( count( $value ) === 1 ) {
+				$converted[ $key ] = $value[0];
+			}
+			else {
+				$converted[ $key ] = $value;
+			}
+		}
+
+		return $converted;
 	}
 }
