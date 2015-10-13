@@ -37,10 +37,6 @@ class Requests_WPHTTP_Hooks implements Requests_Hooker {
 	 * @return boolean Successfulness
 	 */
 	public function dispatch($hook, $parameters = array()) {
-		if (empty($this->hooks[$hook])) {
-			return false;
-		}
-
 		apply_filters_ref_array('requests-' . $hook, $parameters);
 		return true;
 	}
