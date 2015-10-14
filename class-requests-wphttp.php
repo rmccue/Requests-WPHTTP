@@ -49,9 +49,6 @@ class Requests_WPHTTP {
 		//                                         need to be separately decompressed. Default true.
 		// => Is there any reason you wouldn't want responses decompressed?
 
-		// @type int          $limit_response_size Size in bytes to limit the response to. Default null.
-		// => Not available yet, but good idea. We fake support for it by using substr afterwards.
-
 		// If we are streaming to a file but no filename was given drop it in the WP temp dir
 		// and pick its name using the basename of the $url
 		if ( $r['stream'] ) {
@@ -94,6 +91,11 @@ class Requests_WPHTTP {
 		}
 		else {
 			$options['redirects'] = $r['redirection'];
+		}
+
+		// Use byte limit, if we can
+		if ( isset( $r['limit_response_size'] ) ) {
+			$options['max_bytes'] = $r['limit_response_size'];
 		}
 
 		// If we've got cookies, use them
@@ -170,9 +172,6 @@ class Requests_WPHTTP {
 				$data['cookies'][] = new WP_Http_Cookie( $value );
 			}
 		}
-
-		if ( isset( $r['limit_response_size'] ) && strlen( $data['body'] ) > $r['limit_response_size'] )
-			$data['body'] = substr( $data['body'], 0, $r['limit_response_size'] );
 
 		/**
 		 * Filter the HTTP API response immediately before the response is returned.
