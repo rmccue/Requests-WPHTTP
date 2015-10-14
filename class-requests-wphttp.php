@@ -168,7 +168,7 @@ class Requests_WPHTTP {
 		$cookies = $response->headers['set-cookie'];
 		if ( ! empty( $cookies ) ) {
 			$values = explode(',', $cookies);
-			foreach ($cookies as $value) {
+			foreach ($values as $value) {
 				$data['cookies'][] = new WP_Http_Cookie( $value );
 			}
 		}
